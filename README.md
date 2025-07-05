@@ -1,0 +1,1 @@
+# Smart-Event-Calendar_Wordpress-Plugin
