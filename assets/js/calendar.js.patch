@@ -1,0 +1,94 @@
+const $container = this.$el.find('.sec-events-container');
+            $container.empty();
+            
+            // Sort events by date
+            const sortedEvents = [...this.events].sort((a, b) => {
+                return new Date(a.event_date + ' ' + a.event_time) - new Date(b.event_date + ' ' + b.event_time);
+            });
+            
+            // Filter future and current events
+            const now = new Date();
+            const upcomingEvents = sortedEvents.filter(event => {
+                const eventDate = new Date(event.event_date + ' ' + (event.event_time || '00:00:00'));
+                return eventDate >= now;
+            });
+            
+            // Limit to 10 events
+            const eventsToShow = upcomingEvents.slice(0, 10);
+            
+            if (eventsToShow.length === 0) {
+                $container.append('<p>No upcoming events</p>');
+                return;
+            }
+            
+            eventsToShow.forEach(event => {
+                const time = event.event_time ? event.event_time.substring(0, 5) : 'All day';
+                const date = new Date(event.event_date).toLocaleDateString('default', { 
+                    weekday: 'short', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                
+                const $template = this.$el.find('.sec-event-list-template .sec-event-item').clone();
+                $template.find('.sec-event-time').text(`${date} at ${time}`);
+                $template.find('.sec-event-title').text(event.title);
+                $template.find('.sec-event-description').text(event.description || 'No description');
+                $template.find('.sec-edit-event').data('event-id', event.id || event.event_id);
+                $template.find('.sec-delete-event').data('event-id', event.id || event.event_id);
+                
+                $container.append($template);
+            });
+        }
+=======
+        renderEventsList() {
+            const $container = this.$el.find('.sec-events-container');
+            $container.empty();
+            
+            // Sort events by date
+            const sortedEvents = [...this.events].sort((a, b) => {
+                return new Date(a.event_date + ' ' + a.event_time) - new Date(b.event_date + ' ' + b.event_time);
+            });
+            
+            // Filter future and current events
+            const now = new Date();
+            const upcomingEvents = sortedEvents.filter(event => {
+                const eventDate = new Date(event.event_date + ' ' + (event.event_time || '00:00:00'));
+                return eventDate >= now;
+            });
+            
+            if (upcomingEvents.length === 0) {
+                $container.append('<p>No upcoming events</p>');
+                return;
+            }
+            
+            // Group events by date
+            const eventsByDate = {};
+            upcomingEvents.forEach(event => {
+                if (!eventsByDate[event.event_date]) {
+                    eventsByDate[event.event_date] = [];
+                }
+                eventsByDate[event.event_date].push(event);
+            });
+            
+            // Render grouped events
+            for (const [date, events] of Object.entries(eventsByDate)) {
+                const formattedDate = new Date(date).toLocaleDateString('default', { 
+                    weekday: 'long', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                const $dateHeader = $('<h3>').text(formattedDate);
+                $container.append($dateHeader);
+                
+                events.forEach(event => {
+                    const time = event.event_time ? event.event_time.substring(0, 5) : 'All day';
+                    const $eventItem = $('<div>').addClass('sec-event-item');
+                    const $timeSpan = $('<span>').addClass('sec-event-time').text(time);
+                    const $titleSpan = $('<span>').addClass('sec-event-title').text(event.title);
+                    
+                    $eventItem.append($timeSpan, $titleSpan);
+                    $container.append($eventItem);
+                });
+            }
+        }

@@ -1,0 +1,59 @@
+/* Dark Theme */
+.smart-event-calendar.dark-mode {
+    background-color: #2d3748;
+    color: #e2e8f0;
+}
+
+.smart-event-calendar.dark-mode .sec-day {
+    background-color: #4a5568;
+    border-color: #4a5568;
+}
+
+.smart-event-calendar.dark-mode .sec-current-month {
+    background-color: #1a202c;
+}
+
+.smart-event-calendar.dark-mode .sec-today {
+    background-color: #2c5282;
+}
+
+.smart-event-calendar.dark-mode .sec-event-item {
+    background-color: #2c5282;
+    color: #e2e8f0;
+}
+
+.smart-event-calendar.dark-mode .sec-event-item:hover {
+    background-color: #2b6cb0;
+}
+
+.smart-event-calendar.dark-mode .sec-events-list h3 {
+    border-color: #4a5568;
+}
+
+.smart-event-calendar.dark-mode .sec-event-list-template .sec-event-item {
+    background-color: #1a202c;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+.smart-event-calendar.dark-mode .sec-event-description {
+    color: #a0aec0;
+}
+
+.smart-event-calendar.dark-mode .sec-form-group input[type="text"],
+.smart-event-calendar.dark-mode .sec-form-group input[type="time"],
+.smart-event-calendar.dark-mode .sec-form-group textarea,
+.smart-event-calendar.dark-mode .sec-form-group select {
+    background-color: #1a202c;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+.smart-event-calendar.dark-mode .sec-event-form {
+    background-color: #2d3748;
+    color: #e2e8f0;
+}
+
+.smart-event-calendar.dark-mode .sec-close-form {
+    color: #a0aec0;
+}
